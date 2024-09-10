@@ -12,10 +12,11 @@ public class Usuario {
     private String email;
     private boolean isAdmin;
 
+    private List<Ingresso> ingressosComprados;
+
     private static List<Usuario> usuariosCadastrados = new ArrayList<>();
     private static List<Evento> eventosDisponiveis = new ArrayList<>();
 
-    // Construtor da classe vendaingressos.Usuario
     public Usuario(String login, String senha, String nome, String CPF, String email, boolean isAdmin) {
         this.login = login;
         this.senha = senha;
@@ -23,6 +24,7 @@ public class Usuario {
         this.CPF = CPF;
         this.email = email;
         this.isAdmin = isAdmin;
+        this.ingressosComprados = new ArrayList<>();
     }
 
     // Metodo para cadastrar um usuário
@@ -38,7 +40,7 @@ public class Usuario {
     }
 
     // Metodo para realizar login
-    public boolean fazerLogin(String login, String senha) {
+    public boolean login(String login, String senha) {
         for (Usuario usuario : usuariosCadastrados) {
             if (usuario.login.equals(login) && usuario.senha.equals(senha)) {
                 System.out.println("Login realizado com sucesso.");
@@ -59,6 +61,16 @@ public class Usuario {
                 System.out.println("- " + evento.getNome() + " | Data: " + evento.getData() + " | Status: " + evento.getStatus());
             }
         }
+    }
+
+    // Metodo para adicionar um ingresso à lista de ingressos comprados
+    public void adicionarIngresso(Ingresso ingresso) {
+        ingressosComprados.add(ingresso);
+    }
+
+    // Novo Metodo getIngressos() para retornar os ingressos comprados
+    public List<Ingresso> getIngressos() {
+        return ingressosComprados;
     }
 
     // Getters e Setters para os atributos
@@ -82,7 +94,7 @@ public class Usuario {
         this.nome = novoNome;
     }
 
-    public String getCPF() {
+    public String getCpf() {
         return CPF;
     }
 
@@ -120,9 +132,4 @@ public class Usuario {
     public static void adicionarEvento(Evento evento) {
         eventosDisponiveis.add(evento);
     }
-
-//    public boolean login(String usuario, String senha) {
-//        return false;
-//    }
 }
-
