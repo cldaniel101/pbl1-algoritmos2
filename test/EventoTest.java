@@ -56,7 +56,7 @@ public class EventoTest {
     @Test
     public void testEventoAtivo() {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(2024, Calendar.SEPTEMBER, 10);
+        calendar.set(2024, Calendar.SEPTEMBER, 18);
         Date data = calendar.getTime();
 
         Evento evento = new Evento("Show de Rock", "Banda XYZ", data);

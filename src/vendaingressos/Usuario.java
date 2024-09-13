@@ -1,135 +1,114 @@
 package vendaingressos;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.ArrayList;
 
 public class Usuario {
-    private String login;
+    private String usuario;
     private String senha;
-    private String nome;
-    private String CPF;
+    private String nomeCompleto;
+    private String cpf;
     private String email;
     private boolean isAdmin;
+    private List<Ingresso> ingressos;
 
-    private List<Ingresso> ingressosComprados;
-
-    private static List<Usuario> usuariosCadastrados = new ArrayList<>();
-    private static List<Evento> eventosDisponiveis = new ArrayList<>();
-
-    public Usuario(String login, String senha, String nome, String CPF, String email, boolean isAdmin) {
-        this.login = login;
+    public Usuario(String usuario, String senha, String nomeCompleto, String cpf, String email, boolean isAdmin) {
+        this.usuario = usuario;
         this.senha = senha;
-        this.nome = nome;
-        this.CPF = CPF;
+        this.nomeCompleto = nomeCompleto;
+        this.cpf = cpf;
         this.email = email;
         this.isAdmin = isAdmin;
-        this.ingressosComprados = new ArrayList<>();
+        this.ingressos = new ArrayList<>();
     }
 
-    // Metodo para cadastrar um usuário
-    public void cadastrarUsuario() {
-        for (Usuario usuario : usuariosCadastrados) {
-            if (usuario.login.equals(this.login)) {
-                System.out.println("Usuário já cadastrado.");
-                return;
-            }
-        }
-        usuariosCadastrados.add(this);
-        System.out.println("Usuário cadastrado com sucesso.");
-    }
-
-    // Metodo para realizar login
-    public boolean login(String login, String senha) {
-        for (Usuario usuario : usuariosCadastrados) {
-            if (usuario.login.equals(login) && usuario.senha.equals(senha)) {
-                System.out.println("Login realizado com sucesso.");
-                return true;
-            }
-        }
-        System.out.println("Login ou senha incorretos.");
-        return false;
-    }
-
-    // Metodo para listar eventos disponíveis
-    public void listarEventosDisponiveis() {
-        if (eventosDisponiveis.isEmpty()) {
-            System.out.println("Nenhum evento disponível no momento.");
-        } else {
-            System.out.println("Eventos disponíveis:");
-            for (Evento evento : eventosDisponiveis) {
-                System.out.println("- " + evento.getNome() + " | Data: " + evento.getData() + " | Status: " + evento.getStatus());
-            }
-        }
-    }
-
-    // Metodo para adicionar um ingresso à lista de ingressos comprados
-    public void adicionarIngresso(Ingresso ingresso) {
-        ingressosComprados.add(ingresso);
-    }
-
-    // Novo Metodo getIngressos() para retornar os ingressos comprados
-    public List<Ingresso> getIngressos() {
-        return ingressosComprados;
-    }
-
-    // Getters e Setters para os atributos
     public String getLogin() {
-        return login;
+        return usuario;
+    }
+
+    public String getNome() {
+        return nomeCompleto;
     }
 
     public String getSenha() {
         return senha;
     }
 
-    public void setSenha(String novaSenha) {
-        this.senha = novaSenha;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String novoNome) {
-        this.nome = novoNome;
-    }
-
     public String getCpf() {
-        return CPF;
-    }
-
-    public void setCpf(String novoCpf) {
-        this.CPF = novoCpf;
+        return cpf;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String novoEmail) {
-        this.email = novoEmail;
-    }
-
     public boolean isAdmin() {
         return isAdmin;
     }
 
-    // Sobrescrevendo equals e hashCode para comparação entre objetos Usuario
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Usuario usuario = (Usuario) o;
-        return Objects.equals(login, usuario.login);
+    public void setLogin(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public void setNome(String nomeCompleto) {
+        this.nomeCompleto = nomeCompleto;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
+    public boolean login(String usuario, String senha) {
+        return this.usuario.equals(usuario) && this.senha.equals(senha);
+    }
+
+    public void adicionarIngresso(Ingresso ingresso) {
+        ingressos.add(ingresso);
+    }
+
+    public List<Ingresso> getIngressos() {
+        return ingressos;
+    }
+
+    public boolean removeIngresso(Ingresso ingresso) {
+        if (ingresso.cancelar()) {
+            ingressos.remove(ingresso);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(login);
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
+        return result;
     }
 
-    // Metodo para adicionar um evento à lista de eventos disponíveis
-    public static void adicionarEvento(Evento evento) {
-        eventosDisponiveis.add(evento);
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+        Usuario other = (Usuario) obj;
+        if (cpf == null) {
+            return other.cpf == null;
+        } else {
+            return cpf.equals(other.cpf);
+        }
     }
 }
