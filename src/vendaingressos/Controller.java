@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Controller {
-    private List<Evento> eventos = new ArrayList<>();
+    private final List<Evento> eventos = new ArrayList<>();
 
-    public Usuario cadastrarUsuario(String username, String senha, String nome, String cpf, String email, boolean ativo) {
-        return new Usuario(username, senha, nome, cpf, email, ativo);
+    public Usuario cadastrarUsuario(String usuario, String senha, String nome, String cpf, String email, boolean ativo) {
+        return new Usuario(usuario, senha, nome, cpf, email, ativo);
     }
 
     public Evento cadastrarEvento(Usuario admin, String nome, String descricao, Date data) throws SecurityException {
@@ -27,7 +27,7 @@ public class Controller {
                 return evento;
             }
         }
-        System.out.println("Evento não encontrado.");
+        System.out.println("Este evento não foi encontrado.");
         return null;
     }
 
@@ -36,8 +36,12 @@ public class Controller {
         if (evento != null) {
             evento.adicionarAssento(assento);
         } else {
-            System.out.println("Evento não encontrado. Assento não adicionado.");
+            System.out.println("Este evento não foi encontrado. Assento não adicionado.");
         }
+    }
+
+    public List<Evento> listarEventosDisponiveis() {
+        return eventos;
     }
 
     public Ingresso comprarIngresso(Usuario usuario, String nomeEvento, String assento) {
@@ -62,9 +66,5 @@ public class Controller {
 
     public List<Ingresso> listarIngressosComprados(Usuario usuario) {
         return usuario.getIngressos();
-    }
-
-    public List<Evento> listarEventosDisponiveis() {
-        return eventos;
     }
 }

@@ -1,9 +1,9 @@
 package vendaingressos;
 
 public class Ingresso {
-    private Evento evento;
-    private double preco;
-    private String assento;
+    private final Evento evento;
+    private final double preco;
+    private final String assento;
     private boolean status;
 
     // Construtor com preço padrão
@@ -43,21 +43,19 @@ public class Ingresso {
         return false;
     }
 
-    public boolean reativar() {
+    public void reativar() {
         this.status = true;
-        return status;
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((evento == null) ? 0 : evento.hashCode());
-        long temp = Double.doubleToLongBits(preco);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
-        result = prime * result + ((assento == null) ? 0 : assento.hashCode());
-        result = prime * result + (status ? 1231 : 1237);
-        return result;
+        final int numeroPrimo = 31;
+        int hash = 1;
+        hash = numeroPrimo * hash + ((evento == null) ? 0 : evento.hashCode());
+        hash = numeroPrimo * hash + Double.hashCode(preco);
+        hash = numeroPrimo * hash + ((assento == null) ? 0 : assento.hashCode());
+        hash = numeroPrimo * hash + (status ? 1231 : 1237);
+        return hash;
     }
 
     @Override

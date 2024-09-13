@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Evento {
-    private String nome;
-    private String descricao;
-    private Date data;
-    private List<String> assentos;
+    private final String nome;
+    private final Date data;
+    private final String descricao;
+    private final List<String> assentos;
 
     public Evento(String nome, String descricao, Date data) {
         this.nome = nome;

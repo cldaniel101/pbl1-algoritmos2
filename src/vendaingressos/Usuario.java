@@ -92,10 +92,10 @@ public class Usuario {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
-        return result;
+        final int numeroPrimo = 31;
+        int hash = 1;
+        hash = numeroPrimo * hash + ((cpf == null) ? 0 : cpf.hashCode());
+        return hash;
     }
 
     @Override
