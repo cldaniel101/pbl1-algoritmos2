@@ -7,46 +7,85 @@
  apostilas, e páginas ou documentos eletrônicos da Internet. Qualquer trecho de código
  de outra autoria que não a minha está destacado com uma citação para o autor e a fonte
  do código, e estou ciente que estes trechos não serão considerados para fins de avaliação.
-
  ********************************/
 
 package vendaingressos;
 
+/**
+ * A classe Ingresso representa um ingresso para um evento, contendo informações sobre o evento,
+ * preço, assento e o status de ativação do ingresso.
+ */
 public class Ingresso {
     private final Evento evento;
     private final double preco;
     private final String assento;
     private boolean status;
 
-    // Construtor com preço padrão
+    /**
+     * Construtor que cria um ingresso com preço padrão (zero).
+     *
+     * @param evento o evento ao qual o ingresso pertence.
+     * @param assento o assento relacionado ao ingresso.
+     */
     public Ingresso(Evento evento, String assento) {
         this(evento, 0.0, assento);  // Reuso do construtor completo
     }
 
-    // Construtor com preço definido
+    /**
+     * Construtor que cria um ingresso com um preço específico.
+     *
+     * @param evento o evento ao qual o ingresso pertence.
+     * @param preco o preço do ingresso.
+     * @param assento o assento relacionado ao ingresso.
+     */
     public Ingresso(Evento evento, double preco, String assento) {
         this.evento = evento;
         this.preco = preco;
         this.assento = assento;
-        this.status = true;  // Ingresso começa ativo
+        this.status = true;  // O ingresso começa ativo
     }
 
+    /**
+     * Retorna o evento associado ao ingresso.
+     *
+     * @return o evento do ingresso.
+     */
     public Evento getEvento() {
         return evento;
     }
 
+    /**
+     * Retorna o preço do ingresso.
+     *
+     * @return o preço do ingresso.
+     */
     public double getPreco() {
         return preco;
     }
 
+    /**
+     * Retorna o assento relacionado ao ingresso.
+     *
+     * @return o assento do ingresso.
+     */
     public String getAssento() {
         return assento;
     }
 
+    /**
+     * Verifica se o ingresso está ativo.
+     *
+     * @return true se o ingresso estiver ativo, false caso contrário.
+     */
     public boolean isAtivo() {
         return status;
     }
 
+    /**
+     * Cancela o ingresso se o evento ainda estiver ativo.
+     *
+     * @return true se o ingresso foi cancelado com sucesso, false caso contrário.
+     */
     public boolean cancelar() {
         if (evento.isAtivo()) {
             this.status = false;
@@ -55,6 +94,9 @@ public class Ingresso {
         return false;
     }
 
+    /**
+     * Reativa o ingresso, alterando seu status para ativo.
+     */
     public void reativar() {
         this.status = true;
     }
